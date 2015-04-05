@@ -315,7 +315,7 @@ class FITS(object):
             if clobber:
                 create=1
                 if os.path.exists(filename):
-                    warnings.warn('Removing existing file', FITSRuntimeWarning)
+                    warnings.warn('Removing existing file', FITSRuntimeWarning, 2)
                     os.remove(filename)
             else:
                 if os.path.exists(filename):
@@ -1244,7 +1244,7 @@ class HDUBase(object):
             mess=("warning, keyword '%s' has non-standard "
                   "value type %s, "
                   "Converting to string: '%s'")
-            warnings.warn(mess % (keyname,type(value),sval), FITSRuntimeWarning)
+            warnings.warn(mess % (keyname,type(value),sval), FITSRuntimeWarning, 2)
             self._FITS.write_string_key(self._ext+1,
                                         str(keyname),
                                         sval,
@@ -2126,9 +2126,9 @@ class TableHDU(HDUBase):
                         name=self._info['colinfo'][colnum]['name']
                         mess='Will read as an object field'
                         if max_size < 0:
-                            warnings.warn("Column '%s': No maximum size: '%s'. %s" % (name,tform,mess), FITSRuntimeWarning)
+                            warnings.warn("Column '%s': No maximum size: '%s'. %s" % (name,tform,mess), FITSRuntimeWarning, 2)
                         else:
-                            warnings.warn("Column '%s': Max size is zero: '%s'. %s" % (name,tform,mess), FITSRuntimeWarning)
+                            warnings.warn("Column '%s': Max size is zero: '%s'. %s" % (name,tform,mess), FITSRuntimeWarning, 2)
 
                     # we are forced to read this as an object array
                     return self.get_rec_column_descr(colnum, 'object')
